@@ -1,0 +1,78 @@
+const AuthService = require('../services/auth.service');
+const formatUser = require('../utils/formatUser');
+
+exports.inscriptionUser = async (req, res) => {
+  try {
+
+    const {
+      nom,
+      prenom,
+      email,
+      mot_de_passe,
+      adresse,
+      telephone,
+      role
+
+    } = req.body;
+
+    const photoProfil = req.files?.['photoProfil']?.[0] || null;
+
+    const result = await AuthService.register({
+      nom,
+      prenom,
+      email,
+      mot_de_passe,
+      adresse,
+      telephone,
+      photoProfil,
+      role
+    });
+
+    if (!result.success) {
+      return res.status(400).json({
+        message: result.message
+      });
+    }
+
+    return res.status(201).json({
+      message: result.message,
+      utilisateur: formatUser(result.utilisateur),
+    });
+
+  } catch (err) {
+    console.error('Erreur lors de l’inscription :', err);
+    return res.status(500).json({
+      message: 'Erreur serveur lors de l’inscription',
+      erreur: err.message
+    });
+  }
+};
+
+
+exports.login = async (req, res) => {
+  const { email, telephone, mot_de_passe } = req.body;
+  
+  // Choisir identifiant : email ou téléphone
+  const identifiant = email || telephone;
+  
+  if (!identifiant || !mot_de_passe) {
+    return res.status(400).json({ message: 'Email/Téléphone et mot de passe sont obligatoires' });
+  }
+
+  try {
+    const { token, utilisateur, error } = await AuthService.login({ identifiant, mot_de_passe });
+
+    if (error) return res.status(400).json({ message: error });
+
+    return res.status(200).json({
+      token,
+      utilisateur: formatUser(utilisateur)
+    });
+  } catch (err) {
+    console.error('Erreur connexion:', err);
+    return res.status(500).json({
+      message: 'Erreur serveur',
+      erreur: err.message
+    });
+  }
+};
