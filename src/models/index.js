@@ -1,5 +1,5 @@
 // models/index.js
-const sequelize = require('../../config/db');
+const sequelize = require('../config/db');
 
 // Import des modèles
 const Utilisateur = require('./utilisateur.model');
