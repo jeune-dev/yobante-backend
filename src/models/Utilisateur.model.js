@@ -48,6 +48,20 @@ const Utilisateur = sequelize.define('Utilisateur', {
     type: DataTypes.ENUM('actif', 'inactif'),
     defaultValue: 'actif'
   },
+  must_change_password: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
+  },
+
+  is_connected: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
+  },
+
+  last_login: {
+    type: DataTypes.DATE,
+    allowNull: true
+  }
 
 
 }, {

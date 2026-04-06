@@ -16,7 +16,9 @@ class AuthService {
     adresse,
     telephone,
     photoProfil,
-    role = 'Client'
+    role = 'Client',
+    must_change_password= false
+
   }) {
 
     const t = await sequelize.transaction();
@@ -70,7 +72,8 @@ class AuthService {
         adresse,
         telephone,
         photoProfil: photoUrl,
-        role
+        role,
+        must_change_password
       }, { transaction: t });
 
       await t.commit();
@@ -114,6 +117,22 @@ class AuthService {
         message: 'Identifiant ou mot de passe incorrect'
       };
     }
+
+     // 🚨 OBLIGATION DE CHANGER MOT DE PASSE
+    if (utilisateur.must_change_password && utilisateur.role === 'Admin') {
+      return {
+        success: false,
+        mustChangePassword: true,
+        message: "Vous devez changer votre mot de passe avant de continuer",
+        utilisateurId: utilisateur.id
+      };
+    }
+
+    // 🟢 Mise à jour connexion
+    await utilisateur.update({
+      is_connected: true,
+      last_login: new Date()
+    });
 
     const token = jwt.sign({
       id: utilisateur.id,

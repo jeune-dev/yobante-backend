@@ -1,0 +1,26 @@
+const { DataTypes } = require('sequelize');
+const sequelize = require('../../config/db');
+
+const Categorie = sequelize.define('Categorie', {
+  id: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+    primaryKey: true,
+  },
+  nom: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  statut: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true
+  }
+}, {
+  tableName: 'categories',
+  timestamps: true,
+  paranoid: true,
+  underscored: true
+});
+
+module.exports = Categorie;

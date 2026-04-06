@@ -10,9 +10,7 @@ exports.inscriptionUser = async (req, res) => {
       email,
       mot_de_passe,
       adresse,
-      telephone,
-      role
-
+      telephone
     } = req.body;
 
     const photoProfil = req.files?.['photoProfil']?.[0] || null;
@@ -25,7 +23,7 @@ exports.inscriptionUser = async (req, res) => {
       adresse,
       telephone,
       photoProfil,
-      role
+      role: 'Client'
     });
 
     if (!result.success) {
@@ -63,6 +61,7 @@ exports.login = async (req, res) => {
     const { token, utilisateur, error } = await AuthService.login({ identifiant, mot_de_passe });
 
     if (error) return res.status(400).json({ message: error });
+
 
     return res.status(200).json({
       token,
