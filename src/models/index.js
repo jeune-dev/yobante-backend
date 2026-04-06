@@ -6,7 +6,7 @@ const Utilisateur = require('./utilisateur.model');
 const Categorie = require('./boutique/categorie.model');
 const Produit = require('./boutique/produit.model');
 const Commande = require('./boutique/commande.model');
-const CommandeProduit = require('./boutique/CommandeProduit.model');
+const CommandeProduit = require('./boutique/CommandeProduits.model');
 
 // -------------------- RELATIONS --------------------
 
