@@ -18,6 +18,8 @@ app.use(require('morgan')('combined'));
 
 // Routes
 const authRoutes = require('./routes/auth.route');
+const adminRoutes = require('./routes/boutique/admin/admin.route');
+
 
 
 // Serveur fichiers statiques pour les uploads [DÉSACTIVÉ - Sécurité]
@@ -26,5 +28,6 @@ const authRoutes = require('./routes/auth.route');
 
 // Définition des routes
 app.use('/yobante/auth', authRoutes);
+app.use('/yobante/admin', adminRoutes); 
 
 module.exports = app;
