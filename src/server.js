@@ -2,6 +2,8 @@ require('dotenv').config();
 const sequelize = require('./config/db');
 const app = require('./app');
 
+// Charger les modèles et leurs relations avant la synchronisation
+require('./models');
 
 (async () => {
   try {

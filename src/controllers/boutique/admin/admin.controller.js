@@ -1,45 +1,9 @@
 const AdminService = require('../../../services/boutique/admin/admin.service');
 
-
-// ==================== KPIs ====================
-
-// nombre total commandes
-exports.nombreCommandes = async (req, res) => {
-  try {
-    const result = await AdminService.nombreCommandes();
-    return res.status(200).json(result);
-  } catch (error) {
-    console.error("Erreur nombreCommandes :", error);
-    return res.status(500).json({ message: "Erreur commandes" });
-  }
-};
-
-// commandes rejetées
-exports.nombreCommandesRejetees = async (req, res) => {
-  try {
-    const result = await AdminService.nombreCommandesRejetees();
-    return res.status(200).json(result);
-  } catch (error) {
-    console.error("Erreur commandes rejetées :", error);
-    return res.status(500).json({ message: "Erreur commandes rejetées" });
-  }
-};
-
-// chiffre d'affaire
-exports.chiffreAffaire = async (req, res) => {
-  try {
-    const result = await AdminService.chiffreAffaire();
-    return res.status(200).json(result);
-  } catch (error) {
-    console.error("Erreur chiffreAffaire :", error);
-    return res.status(500).json({ message: "Erreur chiffre d’affaire" });
-  }
-};
-
 // produits actifs
-exports.totalProduits = async (req, res) => {
+exports.nombreProduitsActifs = async (req, res) => {
   try {
-    const result = await AdminService.totalProduits();
+    const result = await AdminService.totalProduitsActifs();
     return res.status(200).json(result);
   } catch (error) {
     console.error("Erreur produits actifs :", error);
@@ -48,68 +12,13 @@ exports.totalProduits = async (req, res) => {
 };
 
 // produits inactifs
-exports.totalProduitsInactifs = async (req, res) => {
+exports.nombreProduitsInactifs = async (req, res) => {
   try {
     const result = await AdminService.totalProduitsInactifs();
     return res.status(200).json(result);
   } catch (error) {
     console.error("Erreur produits inactifs :", error);
     return res.status(500).json({ message: "Erreur produits inactifs" });
-  }
-};
-
-// clients actifs
-exports.totalClients = async (req, res) => {
-  try {
-    const result = await AdminService.totalClients();
-    return res.status(200).json(result);
-  } catch (error) {
-    console.error("Erreur clients actifs :", error);
-    return res.status(500).json({ message: "Erreur clients actifs" });
-  }
-};
-
-// clients inactifs
-exports.totalClientsInactifs = async (req, res) => {
-  try {
-    const result = await AdminService.totalClientsInactifs();
-    return res.status(200).json(result);
-  } catch (error) {
-    console.error("Erreur clients inactifs :", error);
-    return res.status(500).json({ message: "Erreur clients inactifs" });
-  }
-};
-
-// dashboard KPIs regroupés (optionnel)
-exports.getDashboardKPIs = async (req, res) => {
-  try {
-    const kpis = {
-      totalCommandes: await AdminService.nombreCommandes(),
-      commandesRejetees: await AdminService.nombreCommandesRejetees(),
-      chiffreAffaire: await AdminService.chiffreAffaire(),
-      produitsActifs: await AdminService.totalProduits(),
-      produitsInactifs: await AdminService.totalProduitsInactifs(),
-      clientsActifs: await AdminService.totalClients(),
-      clientsInactifs: await AdminService.totalClientsInactifs()
-    };
-    return res.status(200).json(kpis);
-  } catch (error) {
-    console.error("Erreur getDashboardKPIs :", error);
-    return res.status(500).json({ message: "Erreur récupération des KPIs" });
-  }
-};
-
-
-// ==================== PRODUITS ====================
-
-// liste produits
-exports.listeProduits = async (req, res) => {
-  try {
-    const result = await AdminService.listeProduits();
-    return res.status(200).json(result);
-  } catch (error) {
-    console.error("Erreur listeProduits :", error);
-    return res.status(500).json({ message: "Erreur liste produits" });
   }
 };
 
@@ -160,8 +69,60 @@ exports.desactiverProduit = async (req, res) => {
   }
 };
 
+// liste produits
+exports.listeProduits = async (req, res) => {
+  try {
+    const result = await AdminService.listeProduits();
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error("Erreur listeProduits :", error);
+    return res.status(500).json({ message: "Erreur liste produits" });
+  }
+};
 
-// ==================== COMMANDES ====================
+// nombre total commandes valides
+exports.nombreCommandesValide = async (req, res) => {
+  try {
+    const result = await AdminService.nombreCommandesValide();
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error("Erreur nombreCommandesValide :", error);
+    return res.status(500).json({ message: "Erreur commandes" });
+  }
+};
+
+// commandes rejetées
+exports.nombreCommandesRejetees = async (req, res) => {
+  try {
+    const result = await AdminService.nombreCommandesRejetees();
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error("Erreur commandes rejetées :", error);
+    return res.status(500).json({ message: "Erreur commandes rejetées" });
+  }
+};
+
+// commande en attente
+exports.nombreCommandesEnAttente = async (req, res) => {
+  try {
+    const result = await AdminService.nombreCommandesEnAttente();
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error("Erreur commandes en attente :", error);
+    return res.status(500).json({ message: "Erreur commandes en attente" });
+  }
+};
+
+//commande livrées
+exports.nombreCommandesLivrees = async (req, res) => {
+  try {
+    const result = await AdminService.nombreCommandesLivre();
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error("Erreur commandes livrées :", error);
+    return res.status(500).json({ message: "Erreur commandes livrées" });
+  }
+};
 
 // liste commandes
 exports.listeCommandes = async (req, res) => {
@@ -198,40 +159,54 @@ exports.rejeterCommande = async (req, res) => {
   }
 };
 
-// Ajouter commande
-
-exports.ajouterCommande = async (req, res) => {
+//livrer commande
+exports.livrerCommande = async (req, res) => {
   try {
-    const userId = req.user.id;
-
-    const { adresse_livraison, montant_total } = req.body;
-
-    if (!adresse_livraison) {
-      return res.status(400).json({
-        message: "Adresse de livraison obligatoire"
-      });
-    }
-
-    const result = await AdminService.ajouterCommande(
-      { adresse_livraison, montant_total },
-      userId
-    );
-
-    return res.status(201).json(result);
-
+    const { id } = req.params;
+    const result = await AdminService.livrerCommande(id);
+    return res.status(200).json(result);
   } catch (error) {
-    console.error("Erreur ajouterCommande :", error);
-    return res.status(500).json({
-      message: "Erreur création commande"
-    });
+    console.error("Erreur livrerCommande :", error);
+    return res.status(500).json({ message: "Erreur livraison commande" });
+  }
+};  
+
+
+// chiffre d'affaire
+exports.chiffreAffaire = async (req, res) => {
+  try {
+    const result = await AdminService.chiffreAffaire();
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error("Erreur chiffreAffaire :", error);
+    return res.status(500).json({ message: "Erreur chiffre d’affaire" });
   }
 };
 
 
+// clients actifs
+exports.nombreClientsActifs = async (req, res) => {
+  try {
+    const result = await AdminService.totalClientsActifs();
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error("Erreur clients actifs :", error);
+    return res.status(500).json({ message: "Erreur clients actifs" });
+  }
+};
 
-// ==================== CLIENTS ====================
+// clients inactifs
+exports.nombreClientsInactifs = async (req, res) => {
+  try {
+    const result = await AdminService.totalClientsInactifs();
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error("Erreur clients inactifs :", error);
+    return res.status(500).json({ message: "Erreur clients inactifs" });
+  }
+};
 
-// liste clients
+//liste clients
 exports.listeClients = async (req, res) => {
   try {
     const result = await AdminService.listeClients();
@@ -242,10 +217,9 @@ exports.listeClients = async (req, res) => {
   }
 };
 
-// activer client
+//activer client
 exports.activerClient = async (req, res) => {
-  try {
-    const { id } = req.params;
+  try {    const { id } = req.params;
     const result = await AdminService.activerClient(id);
     return res.status(200).json(result);
   } catch (error) {
@@ -254,7 +228,7 @@ exports.activerClient = async (req, res) => {
   }
 };
 
-// desactiver client
+//desactiver client
 exports.desactiverClient = async (req, res) => {
   try {
     const { id } = req.params;
@@ -266,8 +240,53 @@ exports.desactiverClient = async (req, res) => {
   }
 };
 
+//ajouter admin
+exports.ajouterAdmin = async (req, res) => {
+  try {
+    const result = await AdminService.ajouterAdmin(req.body);
+    return res.status(201).json(result);
+  } catch (error) {
+    console.error("Erreur ajouterAdmin :", error);
+    return res.status(500).json({ message: "Erreur ajout admin" });
+  }
+};
 
-// ==================== ADMINS ====================
+//modifier admin
+exports.modifierAdmin = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await AdminService.modifierAdmin(id, req.body);
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error("Erreur modifierAdmin :", error);
+    return res.status(500).json({ message: "Erreur modification admin" });
+  }
+};
+
+//activer admin
+exports.activerAdmin = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await AdminService.activerAdmin(id);
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error("Erreur activerAdmin :", error);
+    return res.status(500).json({ message: "Erreur activation admin" });
+  }
+};
+
+//desactiver admin
+exports.desactiverAdmin = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await AdminService.desactiverAdmin(id);
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error("Erreur desactiverAdmin :", error);
+    return res.status(500).json({ message: "Erreur désactivation admin" });
+  }
+
+};
 
 // liste admins
 exports.listeAdmins = async (req, res) => {
@@ -280,49 +299,24 @@ exports.listeAdmins = async (req, res) => {
   }
 };
 
-// ajouter admin
-exports.ajouterAdmin = async (req, res) => {
+// nombre total admins actifs
+exports.nombreAdminsActifs = async (req, res) => {
   try {
-    const result = await AdminService.ajouterAdmin(req.body);
-    return res.status(201).json(result);
+    const result = await AdminService.totalAdminsActifs();
+    return res.status(200).json(result);
   } catch (error) {
-    console.error("Erreur ajouterAdmin :", error);
-    return res.status(500).json({ message: "Erreur ajout admin" });
+    console.error("Erreur nombreAdminsActifs :", error);
+    return res.status(500).json({ message: "Erreur nombre admins actifs" });
   }
 };
 
-// modifier admin
-exports.modifierAdmin = async (req, res) => {
+// nombre total admins inactifs
+exports.nombreAdminsInactifs = async (req, res) => {
   try {
-    const { id } = req.params;
-    const result = await AdminService.modifierAdmin(id, req.body);
+    const result = await AdminService.totalAdminsInactifs();
     return res.status(200).json(result);
   } catch (error) {
-    console.error("Erreur modifierAdmin :", error);
-    return res.status(500).json({ message: "Erreur modification admin" });
-  }
-};
-
-// activer admin
-exports.activerAdmin = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const result = await AdminService.activerAdmin(id);
-    return res.status(200).json(result);
-  } catch (error) {
-    console.error("Erreur activerAdmin :", error);
-    return res.status(500).json({ message: "Erreur activation admin" });
-  }
-};
-
-// desactiver admin
-exports.desactiverAdmin = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const result = await AdminService.desactiverAdmin(id);
-    return res.status(200).json(result);
-  } catch (error) {
-    console.error("Erreur desactiverAdmin :", error);
-    return res.status(500).json({ message: "Erreur désactivation admin" });
+    console.error("Erreur nombreAdminsInactifs :", error);
+    return res.status(500).json({ message: "Erreur nombre admins inactifs" });
   }
 };

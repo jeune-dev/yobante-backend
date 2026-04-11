@@ -22,11 +22,13 @@ Produit.belongsTo(Categorie, { foreignKey: 'categorie_id', as: 'categorie' });
 Produit.belongsToMany(Commande, { 
   through: CommandeProduit, 
   foreignKey: 'produit_id', 
+  otherKey: 'commande_id',
   as: 'commandes' 
 });
 Commande.belongsToMany(Produit, { 
   through: CommandeProduit, 
-  foreignKey: 'commande_id', 
+  foreignKey: 'commande_id',
+  otherKey: 'produit_id',  
   as: 'produits' 
 });
 
