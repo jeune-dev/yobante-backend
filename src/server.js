@@ -2,8 +2,6 @@ require('dotenv').config();
 const sequelize = require('./config/db');
 const app = require('./app');
 
-// Modèles
-const User = require('./models/Utilisateur.model');
 
 (async () => {
   try {

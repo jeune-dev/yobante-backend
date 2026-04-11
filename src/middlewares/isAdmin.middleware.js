@@ -4,7 +4,7 @@ function isAdmin(req, res, next) {
     return res.status(401).json({ message: "Non authentifié" });
   }
 
-  // Vérifier le rôle
+  // Vérifier le rôle admin
   if (req.user.role !== 'Admin') {
     return res.status(403).json({ message: "Accès réservé aux administrateurs" });
   }

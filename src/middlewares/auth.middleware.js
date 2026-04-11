@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { jwtConfig } = require('../config/security');
-const User = require('../models/Utilisateur.model');
+const { Utilisateur} = require('../models');
 
 const authMiddleware = async (req, res, next) => {
   try {
@@ -17,7 +17,7 @@ const authMiddleware = async (req, res, next) => {
     const decoded = jwt.verify(token, jwtConfig.secret);
 
     // Vérifier que l'utilisateur existe en base
-    const utilisateur = await User.findByPk(decoded.id);
+    const utilisateur = await Utilisateur.findByPk(decoded.id);
     if (!utilisateur) {
       return res.status(404).json({ message: 'Utilisateur introuvable' });
     }

@@ -2,32 +2,29 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
-const path = require('path');
+const morgan = require('morgan');
+
 const { corsConfig, rateLimitConfig } = require('./config/security');
 
 const app = express();
 
-// Middlewares globaux
+// ================= MIDDLEWARES =================
 app.use(helmet());
 app.use(cors(corsConfig));
-app.use(express.json({ limit: '5mb' }));
+
+// 🔥 IMPORTANT : BODY PARSER UNIQUE
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 app.use(rateLimit(rateLimitConfig));
-app.use(require('morgan')('combined'));
+app.use(morgan('combined'));
 
-
-// Routes
+// ================= ROUTES =================
 const authRoutes = require('./routes/auth.route');
 const adminRoutes = require('./routes/boutique/admin/admin.route');
 
-
-
-// Serveur fichiers statiques pour les uploads [DÉSACTIVÉ - Sécurité]
-// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-
-// Définition des routes
 app.use('/yobante/auth', authRoutes);
-app.use('/yobante/admin', adminRoutes); 
+app.use('/yobante/admin', adminRoutes);
 
+// ================= EXPORT =================
 module.exports = app;
