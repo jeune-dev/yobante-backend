@@ -1,4 +1,4 @@
-const AdminService = require('../../services/admin/admin.service');
+const AdminService = require('../../../services/boutique/admin/admin.service');
 
 // -------------------- NOMBRE TOTAL DE COMMANDES --------------------
 exports.nombreCommandes = async (req, res) => {

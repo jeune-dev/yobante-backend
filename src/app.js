@@ -18,16 +18,23 @@ app.use(require('morgan')('combined'));
 
 // Routes
 const authRoutes = require('./routes/auth.route');
-const adminRoutes = require('./routes/boutique/admin/admin.route');
-
-
-
-// Serveur fichiers statiques pour les uploads [DÉSACTIVÉ - Sécurité]
-// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+const utilisateursRoutes = require('./routes/utilisateurs/utilisateurs.route');
+const boutiqueadminRoutes = require('./routes/boutique/admin/admin.route');
+const colisadminRoutes = require('./routes/colis/admin/admin.route');
+const clientRoutes = require('./routes/colis/clients/client.route');
+const conteneurRoutes = require('./routes/colis/conteneur/conteneur.route');
+const demandeRoutes = require('./routes/colis/demande/demande.route');
+const tarifsRoutes = require('./routes/colis/tarif/tarifs.route');
 
 
 // Définition des routes
 app.use('/yobante/auth', authRoutes);
-app.use('/yobante/admin', adminRoutes); 
+app.use('/yobante/utilisateurs', utilisateursRoutes);
+app.use('/yobante/boutiqueadmin', boutiqueadminRoutes);
+app.use('/yobante/colisadmin', colisadminRoutes);
+app.use('/yobante/clients', clientRoutes);
+app.use('/yobante/conteneurs', conteneurRoutes);
+app.use('/yobante/demandes', demandeRoutes);
+app.use('/yobante/tarifs', tarifsRoutes);
 
 module.exports = app;

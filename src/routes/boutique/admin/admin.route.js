@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const adminController = require('../../controllers/admin/admin.controller');
-const isAdmin = require('../../middlewares/isAdmin.middleware'); 
-const auth = require('../../middlewares/auth.middleware');
-const checkActiveUser = require('../../middlewares/checkActiveUser.middleware');
+const adminController = require('../../../controllers/boutique/admin/admin.controller');
+const isAdmin = require('../../../middlewares/isAdmin.middleware'); 
+const auth = require('../../../middlewares/auth.middleware');
+const checkActiveUser = require('../../../middlewares/checkActiveUser.middleware');
 
 // Protection des routes
 router.use(auth);
